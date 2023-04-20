@@ -1,0 +1,27 @@
+### LOG FLUENTD_REMOTEHOST
+APPLICATION_NAME=facecheck
+APPLICATION_VERSION=repo_facecheck_version
+
+### Database
+SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+
+
+### Envio de emails - SMTP
+SPRING_MAIL_HOST=${SPRING_MAIL_HOST}
+SPRING_MAIL_PORT=465
+SPRING_MAIL_PROTOCOL=smtps
+SPRING_MAIL_USERNAME=${SPRING_MAIL_USERNAME}
+SPRING_MAIL_PASSWORD=${SPRING_MAIL_PASSWORD}
+
+### Conexões
+app_nexaface-gateway-url=http://nexafacegateway:8090/rest
+app_preface-url=http://prefaceserver:8090/rest/preface
+app_datavalid_url=https://gateway.apiserpro.serpro.gov.br/datavalid/v2
+app_facetec_url=http://facetec:8090/rest/zoom
+app_biometricquality-url=http://biometricquality:8090/rest/quality
+app_listproduct-url=http://trxserver:8090/rest
+
+###AWS SQS
+#removed

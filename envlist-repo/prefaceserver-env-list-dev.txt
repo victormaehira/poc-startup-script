@@ -1,0 +1,3 @@
+### LOG FLUENTD_REMOTEHOST
+APPLICATION_NAME=prefaceserver
+APPLICATION_VERSION=repo_prefaceserver_version
