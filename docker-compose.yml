@@ -48,11 +48,6 @@ services:
     volumes:
       - zoom-log:/app/log
       - zoom-temp:/app/temp
-      - ./zoom-licenses/certibio_server_license_flexipag.txt:/app/certibio_server_license_flexipag.txt
-      - ./zoom-licenses/certibio_server_license_itau.txt:/app/certibio_server_license_itau.txt
-      - ./zoom-licenses/certibio_server_license_vw.txt:/app/certibio_server_license_vw.txt
-      - ./zoom-licenses/certibio_server_license_safra.txt:/app/certibio_server_license_safra.txt
-      - ./zoom-licenses/certibio_server_license_banpara.txt:/app/certibio_server_license_banpara.txt
     networks:
       - default
       - facecheck_network
