@@ -12,6 +12,10 @@ services:
     entrypoint: java -Xms512m -Xmx512m -jar app.jar
     env_file:
       - envlist-repo/facecheck-env-list-${app_env?}.txt
+    environment:
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
     ports:
       - 8090:8090
       - 8091:8091
@@ -42,6 +46,10 @@ services:
     entrypoint: java -Xmx1g -Xms1g org.springframework.boot.loader.JarLauncher
     env_file:
       - envlist-repo/facetec-env-list-${app_env?}.txt
+    environment:
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
     ports:
       - 8490:8090
       - 8491:8091
