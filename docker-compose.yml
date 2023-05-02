@@ -7,66 +7,20 @@ volumes:
   facecheck-log:
 
 services:
-#######################################################################
-  nginx:
-    image: nginx:latest
-    container_name: nginx
-    depends_on:
-      - fluentd
-      - facecheck
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/conf.d/vhosts.conf:/etc/nginx/conf.d/vhosts.conf:ro
-      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf:ro
-    ports:
-      - 8888:88
-      - 8880:80
-      - 8881:81
-    networks:
-      - default
-      - facecheck_network
-
-#######################################################################
-  fluentd:
-    image: gcr.io/biocorp-dev/fluentd:v1.2.4-onbuild-rc181226193700
-    env_file: envlist-repo/fluentd-env-list-${app_env?}.txt
-    ports:
-      - 24224:24224
-      - 24224:24224/udp
-    volumes:
-      - ./fluentd/fluent.conf:/fluentd/etc/fluent.conf
-      - app-log:/fluentd/log
-    networks:
-      - facecheck_network
-    restart: on-failure
-
-#######################################################################
   facecheck:
     image: gcr.io/biocorp-dev/facecheck:${repo_facecheck_version}
     entrypoint: java -Xms512m -Xmx512m -jar app.jar
     env_file:
-      - envlist-repo/log-fluentd-${app_env?}.txt
       - envlist-repo/facecheck-env-list-${app_env?}.txt
     ports:
       - 8090:8090
       - 8091:8091
-    depends_on:
-      - fluentd
     networks:
       - default
       - facecheck_network
-    logging:
-      driver: fluentd
     restart: on-failure
     volumes:
       - facecheck-log:/app/log
-    # healthcheck:
-    #   test: ["CMD", "/bin/curl","-f","http://localhost:8091/actuator/health"]
-    #   interval: 20s
-    #   timeout: 10s
-    #   retries: 4
-    #   start_period: 2m
-
 #######################################################################
   prefaceserver:
     image: gcr.io/biocorp-dev/preface-server:${repo_prefaceserver_version}
@@ -74,38 +28,23 @@ services:
     environment:
       - LD_LIBRARY_PATH=preface/lib
     env_file:
-      - envlist-repo/log-fluentd-${app_env?}.txt
       - envlist-repo/prefaceserver-env-list-${app_env?}.txt
     ports:
       - 8390:8090
       - 8391:8091
-    depends_on:
-      - fluentd
     networks:
       - default
       - facecheck_network
-    logging:
-      driver: fluentd
     restart: on-failure
-    # healthcheck:
-    #   test: ["CMD", "/bin/curl","-f","http://localhost:8091/actuator/health"]
-    #   interval: 20s
-    #   timeout: 10s
-    #   retries: 4
-    #   start_period: 2m
-
 #######################################################################
   facetec:
     image: gcr.io/biocorp-dev/biozoomserver:${repo_facetec_version}
     entrypoint: java -Xmx1g -Xms1g org.springframework.boot.loader.JarLauncher
     env_file:
-      - envlist-repo/log-fluentd-${app_env?}.txt
       - envlist-repo/facetec-env-list-${app_env?}.txt
     ports:
       - 8490:8090
       - 8491:8091
-    depends_on:
-      - fluentd
     volumes:
       - zoom-log:/app/log
       - zoom-temp:/app/temp
@@ -117,8 +56,6 @@ services:
     networks:
       - default
       - facecheck_network
-    logging:
-      driver: fluentd
     restart: on-failure
     # healthcheck:
     #   test: ["CMD", "/bin/curl","-f","http://localhost:8091/actuator/health"]
@@ -132,27 +69,16 @@ services:
     image: gcr.io/biocorp-dev/biometric-quality-server:${repo_biometricqualityserver_version}
     entrypoint: java -Xms1024m -Xmx1024m -jar app.jar
     env_file:
-      - envlist-repo/log-fluentd-${app_env?}.txt
       - envlist-repo/biometricqualityserver-env-list-${app_env?}.txt
     ports:
       - 8590:8090
       - 8591:8091
     depends_on:
       - prefaceserver
-      - fluentd
     networks:
       - default
       - facecheck_network
-    logging:
-      driver: fluentd
     restart: on-failure
-    # healthcheck:
-    #   test: ["CMD", "/bin/curl","-f","http://localhost:8091/actuator/health"]
-    #   interval: 20s
-    #   timeout: 10s
-    #   retries: 4
-    #   start_period: 2m
-
 #######################################################################
 networks:
   facecheck_network:
