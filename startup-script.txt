@@ -5,6 +5,8 @@ sudo apt -y install git
 sudo git clone https://github.com/victormaehira/poc-startup-script.git
 cd poc-startup-script
 
+#escolha dir = biozoomserver ou quality ou facecheck
+export dir=quality
 export SPRING_DATASOURCE_USERNAME=<COLOQUE_USER_AQUI>
 export SPRING_DATASOURCE_PASSWORD=<COLOQUE_SENHA_AQUI>
 export SPRING_DATASOURCE_URL=<COLOQUE_URL_AQUI>
@@ -20,4 +22,5 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo docker network create facecheck_network
 
 sudo gcloud auth configure-docker
+cd ${dir}
 sudo docker-compose up -d

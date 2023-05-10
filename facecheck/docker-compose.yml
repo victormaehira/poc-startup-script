@@ -1,0 +1,24 @@
+version: '3.4'
+
+volumes:
+  facecheck-log:
+
+services:
+  facecheck:
+    image: gcr.io/biocorp-dev/facecheck:${repo_facecheck_version}
+    entrypoint: java -Xms512m -Xmx512m -jar app.jar
+    env_file:
+      - envlist-repo/facecheck-env-list-${app_env?}.txt
+    ports:
+      - 8090:8090
+      - 8091:8091
+    networks:
+      - default
+      - facecheck_network
+    restart: on-failure
+    volumes:
+      - facecheck-log:/app/log
+#######################################################################
+networks:
+  facecheck_network:
+    external: true
