@@ -8,15 +8,10 @@ cd poc-startup-script
 #escolha dir = biozoomserver ou quality ou facecheck
 export dir=quality
 
-echo "" >> ./envlist-repo/facetec-env-list-dev.txt
-echo "SPRING_DATASOURCE_USERNAME=<COLOQUE_USER_AQUI>" >> ./envlist-repo/facetec-env-list-dev.txt
-echo "SPRING_DATASOURCE_PASSWORD=<COLOQUE_A_SENHA_AQUI>" >> ./envlist-repo/facetec-env-list-dev.txt
-echo "SPRING_DATASOURCE_URL=<COLOQUE_A_URL_AQUI>" >> ./envlist-repo/facetec-env-list-dev.txt
-
-echo "" >> ./envlist-repo/facecheck-env-list-dev.txt
-echo "SPRING_DATASOURCE_USERNAME=<COLOQUE_USER_AQUI>" >> ./envlist-repo/facecheck-env-list-dev.txt
-echo "SPRING_DATASOURCE_PASSWORD=<COLOQUE_A_SENHA_AQUI_AQUI>" >> ./envlist-repo/facecheck-env-list-dev.txt
-echo "SPRING_DATASOURCE_URL=<COLOQUE_A_URL_AQUI>" >> ./envlist-repo/facecheck-env-list-dev.txt
+sudo sed -i 's/${SPRING_DATASOURCE_USERNAME}/<COLOQUE_USER_AQUI>/g' ./envlist-repo/*.txt
+sudo sed -i 's/${SPRING_DATASOURCE_PASSWORD}/<COLOQUE_A_SENHA_AQUI>/g' ./envlist-repo/*.txt
+sudo sed -i 's/${SPRING_DATASOURCE_URL}/<COLOQUE_A_URL_DB_AQUI>/g' ./envlist-repo/*.txt
+sudo sed -i 's/${SPRING_DATASOURCE_URL_ZOOM}/<COLOQUE_A_URL_DB_ZOOM_AQUI>/g' ./envlist-repo/*.txt
 
 source .env
 
