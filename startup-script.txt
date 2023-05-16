@@ -11,7 +11,7 @@ export dir=quality
 sudo sed -i 's/${SPRING_DATASOURCE_USERNAME}/<COLOQUE_USER_AQUI>/g' ./envlist-repo/*.txt
 sudo sed -i 's/${SPRING_DATASOURCE_PASSWORD}/<COLOQUE_A_SENHA_AQUI>/g' ./envlist-repo/*.txt
 sudo sed -i 's/${SPRING_DATASOURCE_URL}/<COLOQUE_A_URL_DB_AQUI>/g' ./envlist-repo/*.txt
-sudo sed -i 's/${SPRING_DATASOURCE_URL_ZOOM}/<COLOQUE_A_URL_DB_ZOOM_AQUI>/g' ./envlist-repo/*.txt
+sudo sed -i 's/${SPRING_DATASOURCE_IP}/<COLOQUE_O_IP_DO_DB_AQUI>/g' ./envlist-repo/*.txt
 
 source .env
 
