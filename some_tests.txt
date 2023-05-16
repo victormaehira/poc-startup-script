@@ -1,0 +1,4 @@
+
+
+teste biozoomserver
+http://localhost:8490/rest/zoom/status
