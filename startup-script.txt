@@ -7,10 +7,16 @@ cd poc-startup-script
 
 #escolha dir = biozoomserver ou quality ou facecheck
 export dir=quality
-export SPRING_DATASOURCE_USERNAME=<COLOQUE_USER_AQUI>
-export SPRING_DATASOURCE_PASSWORD=<COLOQUE_SENHA_AQUI>
-export SPRING_DATASOURCE_URL=<COLOQUE_URL_AQUI>
-export SPRING_DATASOURCE_URL_ZOOM=<COLOQUE_URL_AQUI>
+
+echo "" >> ./envlist-repo/facetec-env-list-dev.txt
+echo "SPRING_DATASOURCE_USERNAME=<COLOQUE_USER_AQUI>" >> ./envlist-repo/facetec-env-list-dev.txt
+echo "SPRING_DATASOURCE_PASSWORD=<COLOQUE_A_SENHA_AQUI>" >> ./envlist-repo/facetec-env-list-dev.txt
+echo "SPRING_DATASOURCE_URL=<COLOQUE_A_URL_AQUI>" >> ./envlist-repo/facetec-env-list-dev.txt
+
+echo "" >> ./envlist-repo/facecheck-env-list-dev.txt
+echo "SPRING_DATASOURCE_USERNAME=<COLOQUE_USER_AQUI>" >> ./envlist-repo/facecheck-env-list-dev.txt
+echo "SPRING_DATASOURCE_PASSWORD=<COLOQUE_A_SENHA_AQUI_AQUI>" >> ./envlist-repo/facecheck-env-list-dev.txt
+echo "SPRING_DATASOURCE_URL=<COLOQUE_A_URL_AQUI>" >> ./envlist-repo/facecheck-env-list-dev.txt
 
 source .env
 
