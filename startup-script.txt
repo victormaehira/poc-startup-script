@@ -12,9 +12,14 @@ export PASSWORD=$(gcloud secrets versions access "latest" --secret="db-password-
 export USER=$(gcloud secrets versions access "latest" --secret="db-user-dev")
 export DB_IP=$(gcloud secrets versions access "latest" --secret="db-ip-dev")
 
+export FACETEC_IP=$(gcloud secrets versions access "latest" --secret="facetec-ip-dev")
+export QUALITY_IP=$(gcloud secrets versions access "latest" --secret="quality-ip-dev")
+
 sudo sed -i 's/${SPRING_DATASOURCE_USERNAME}/'$USER'/g' ./envlist-repo/*.txt
 sudo sed -i 's/${SPRING_DATASOURCE_PASSWORD}/'$PASSWORD'/g' ./envlist-repo/*.txt
 sudo sed -i 's/${SPRING_DATASOURCE_IP}/'$DB_IP'/g' ./envlist-repo/*.txt
+sudo sed -i 's/${FACETEC_IP}/'$FACETEC_IP'/g' ./envlist-repo/*.txt
+sudo sed -i 's/${FACETEC_IP}/'$QUALITY_IP'/g' ./envlist-repo/*.txt
 
 source .env
 
