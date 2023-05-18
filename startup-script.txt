@@ -6,7 +6,7 @@ sudo git clone https://github.com/victormaehira/poc-startup-script.git
 cd poc-startup-script
 
 #escolha dir = biozoomserver ou quality ou facecheck
-export dir=biozoomserver
+export dir=facecheck
 
 export PASSWORD=$(gcloud secrets versions access "latest" --secret="db-password-dev")
 export USER=$(gcloud secrets versions access "latest" --secret="db-user-dev")
@@ -19,7 +19,7 @@ sudo sed -i 's/${SPRING_DATASOURCE_USERNAME}/'$USER'/g' ./envlist-repo/*.txt
 sudo sed -i 's/${SPRING_DATASOURCE_PASSWORD}/'$PASSWORD'/g' ./envlist-repo/*.txt
 sudo sed -i 's/${SPRING_DATASOURCE_IP}/'$DB_IP'/g' ./envlist-repo/*.txt
 sudo sed -i 's/${FACETEC_IP}/'$FACETEC_IP'/g' ./envlist-repo/*.txt
-sudo sed -i 's/${FACETEC_IP}/'$QUALITY_IP'/g' ./envlist-repo/*.txt
+sudo sed -i 's/${QUALITY_IP}/'$QUALITY_IP'/g' ./envlist-repo/*.txt
 
 source .env
 
