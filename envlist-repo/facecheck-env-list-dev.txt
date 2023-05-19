@@ -19,8 +19,8 @@ SPRING_MAIL_PASSWORD=${SPRING_MAIL_PASSWORD}
 app_nexaface-gateway-url=http://nexafacegateway:8090/rest
 app_preface-url=http://prefaceserver:8090/rest/preface
 app_datavalid_url=https://gateway.apiserpro.serpro.gov.br/datavalid/v2
-app_facetec_url=http://${FACETEC_IP}:8490/rest/zoom
-app_biometricquality-url=http://${QUALITY_IP}:8590/rest/quality
+app_facetec_url=http://${FACETEC_IP}:80/rest/zoom
+app_biometricquality-url=http://${QUALITY_IP}:80/rest/quality
 app_listproduct-url=http://trxserver:8090/rest
 
 ###AWS SQS
