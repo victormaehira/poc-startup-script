@@ -1,0 +1,37 @@
+version: '3.4'
+
+services:
+#######################################################################
+  prefaceserver:
+    image: gcr.io/cs-prj-dev-biocorp/preface-server:${repo_prefaceserver_version}
+    entrypoint: java -Xmx1g -Xms1g -jar app.jar
+    environment:
+      - LD_LIBRARY_PATH=preface/lib
+    env_file:
+      - envlist-repo/prefaceserver-env-list-${app_env?}.txt
+    ports:
+      - 8390:8090
+      - 8391:8091
+    networks:
+      - default
+      - facecheck_network
+    restart: on-failure
+#######################################################################
+  biometricquality:
+    image: gcr.io/cs-prj-dev-biocorp/biometric-quality-server:${repo_biometricqualityserver_version}
+    entrypoint: java -Xms1024m -Xmx1024m -jar app.jar
+    env_file:
+      - envlist-repo/biometricqualityserver-env-list-${app_env?}.txt
+    ports:
+      - 8590:8090
+      - 8591:8091
+    depends_on:
+      - prefaceserver
+    networks:
+      - default
+      - facecheck_network
+    restart: on-failure
+#######################################################################
+networks:
+  facecheck_network:
+    external: true

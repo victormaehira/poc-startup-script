@@ -1,0 +1,5 @@
+ELASTICSEARCH_HOST=vpc-logging-facecheck-v2-homolog-bxr6yr4pq2jjy56cuse5cbjtqe.us-east-1.es.amazonaws.com
+ELASTICSEARCH_PORT=443
+ELASTICSEARCH_SCHEME=https
+S3_BUCKET_LOGS=facecheck-logs-dev
+FLUENT_ENVIRONMENT=dev
