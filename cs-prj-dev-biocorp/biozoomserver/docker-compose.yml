@@ -5,15 +5,6 @@ volumes:
   zoom-temp:
 
 services:
-  usage_server_log:
-    image: gcr.io/cs-prj-dev-biocorp/usage_server_log:02
-    ports:
-      - 3000:3000
-    networks:
-      - default
-      - facecheck_network
-    restart: on-failure
-#######################################################################
   facetec:
     image: gcr.io/cs-prj-dev-biocorp/biozoomserver:${repo_facetec_version}
     entrypoint: java -Xmx1g -Xms1g org.springframework.boot.loader.JarLauncher
