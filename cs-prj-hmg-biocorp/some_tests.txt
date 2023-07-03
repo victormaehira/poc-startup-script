@@ -1,0 +1,17 @@
+
+
+teste biozoomserver (GET)
+- obs: nao tem autenticacao
+wget http://localhost:8490/rest/zoom/status
+
+--------------------------------------------------
+facecheck (GET)
+- obs: gerar bearer token
+
+curl --location --request GET 'http://localhost:8090/rest/transactions/count' 
+--header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyX2dvZCIsImV4cCI6MTY4NTI4MTgxMCwiYXV0aCI6WyJST0xFX0FETUlOIiwiUk9MRV9CQUNLT0ZGSUNFIiwiUk9MRV9TVVBFUlVTRVIiLCJST0xFX1VTRVIiXX0.pwwGq2GtI7d6hjjQ1MmrHzJs6lKy-UZo8Yg5cRT_SVPBGduSCl9_XP8Sdp4XzRMh_2oZBfxuR8eHaiZoDlaDJw' 
+
+--------------------------------------------------
+quality (POST)
+curl -X POST http://localhost:8090/rest/quality/validate
+--------------------------------------------------

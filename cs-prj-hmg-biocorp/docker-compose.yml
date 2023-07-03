@@ -1,0 +1,80 @@
+version: '3.4'
+
+volumes:
+  app-log:
+  zoom-log:
+  zoom-temp:
+  facecheck-log:
+
+services:
+  facecheck:
+    image: gcr.io/cs-prj-hmg-biocorp/facecheck:${repo_facecheck_version}
+    entrypoint: java -Xms512m -Xmx512m -jar app.jar
+    env_file:
+      - envlist-repo/facecheck-env-list-${app_env?}.txt
+    ports:
+      - 8090:8090
+      - 8091:8091
+    networks:
+      - default
+      - facecheck_network
+    restart: on-failure
+    volumes:
+      - facecheck-log:/app/log
+#######################################################################
+  prefaceserver:
+    image: gcr.io/cs-prj-hmg-biocorp/preface-server:${repo_prefaceserver_version}
+    entrypoint: java -Xmx1g -Xms1g -jar app.jar
+    environment:
+      - LD_LIBRARY_PATH=preface/lib
+    env_file:
+      - envlist-repo/prefaceserver-env-list-${app_env?}.txt
+    ports:
+      - 8390:8090
+      - 8391:8091
+    networks:
+      - default
+      - facecheck_network
+    restart: on-failure
+#######################################################################
+  facetec:
+    image: gcr.io/cs-prj-hmg-biocorp/biozoomserver:${repo_facetec_version}
+    entrypoint: java -Xmx1g -Xms1g org.springframework.boot.loader.JarLauncher
+    env_file:
+      - envlist-repo/facetec-env-list-${app_env?}.txt
+    ports:
+      - 8490:8090
+      - 8491:8091
+    volumes:
+      - zoom-log:/app/log
+      - zoom-temp:/app/temp
+    networks:
+      - default
+      - facecheck_network
+    restart: on-failure
+    # healthcheck:
+    #   test: ["CMD", "/bin/curl","-f","http://localhost:8091/actuator/health"]
+    #   interval: 20s
+    #   timeout: 10s
+    #   retries: 4
+    #   start_period: 30s
+
+#######################################################################
+  biometricquality:
+    image: gcr.io/cs-prj-hmg-biocorp/biometric-quality-server:${repo_biometricqualityserver_version}
+    entrypoint: java -Xms1024m -Xmx1024m -jar app.jar
+    env_file:
+      - envlist-repo/biometricqualityserver-env-list-${app_env?}.txt
+    ports:
+      - 8590:8090
+      - 8591:8091
+    depends_on:
+      - prefaceserver
+    networks:
+      - default
+      - facecheck_network
+    restart: on-failure
+#######################################################################
+networks:
+  facecheck_network:
+    external: true
