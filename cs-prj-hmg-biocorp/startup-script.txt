@@ -8,12 +8,12 @@ cd poc-startup-script/cs-prj-hmg-biocorp
 #escolha dir = biozoomserver ou quality ou facecheck
 export dir=facecheck
 
-export PASSWORD=$(gcloud secrets versions access "latest" --secret="db-password-dev")
-export USER=$(gcloud secrets versions access "latest" --secret="db-user-dev")
-export DB_IP=$(gcloud secrets versions access "latest" --secret="db-ip-dev")
+export PASSWORD=$(gcloud secrets versions access "latest" --secret="db-password-hmg")
+export USER=$(gcloud secrets versions access "latest" --secret="db-user-hmg")
+export DB_IP=$(gcloud secrets versions access "latest" --secret="db-ip-hmg")
 
-export FACETEC_IP=$(gcloud secrets versions access "latest" --secret="facetec-ip-dev")
-export QUALITY_IP=$(gcloud secrets versions access "latest" --secret="quality-ip-dev")
+export FACETEC_IP=$(gcloud secrets versions access "latest" --secret="facetec-ip-hmg")
+export QUALITY_IP=$(gcloud secrets versions access "latest" --secret="quality-ip-hmg")
 
 sudo sed -i 's/${SPRING_DATASOURCE_USERNAME}/'$USER'/g' ./envlist-repo/*.txt
 sudo sed -i 's/${SPRING_DATASOURCE_PASSWORD}/'$PASSWORD'/g' ./envlist-repo/*.txt
