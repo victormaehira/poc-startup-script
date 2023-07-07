@@ -3,17 +3,17 @@ cd /opt/projetos
 
 sudo apt -y install git
 sudo git clone https://github.com/victormaehira/poc-startup-script.git
-cd poc-startup-script/cs-prj-hmg-biocorp
+cd poc-startup-script/cs-prj-prd-biocorp
 
 #escolha dir = biozoomserver ou quality ou facecheck
 export dir=facecheck
 
-export PASSWORD=$(gcloud secrets versions access "latest" --secret="db-password-hmg")
-export USER=$(gcloud secrets versions access "latest" --secret="db-user-hmg")
-export DB_IP=$(gcloud secrets versions access "latest" --secret="db-ip-hmg")
+export PASSWORD=$(gcloud secrets versions access "latest" --secret="db-password-prd")
+export USER=$(gcloud secrets versions access "latest" --secret="db-user-prd")
+export DB_IP=$(gcloud secrets versions access "latest" --secret="db-ip-prd")
 
-export FACETEC_IP=$(gcloud secrets versions access "latest" --secret="facetec-ip-hmg")
-export QUALITY_IP=$(gcloud secrets versions access "latest" --secret="quality-ip-hmg")
+export FACETEC_IP=$(gcloud secrets versions access "latest" --secret="facetec-ip-prd")
+export QUALITY_IP=$(gcloud secrets versions access "latest" --secret="quality-ip-prd")
 
 sudo sed -i 's/${SPRING_DATASOURCE_USERNAME}/'$USER'/g' ./envlist-repo/*.txt
 sudo sed -i 's/${SPRING_DATASOURCE_PASSWORD}/'$PASSWORD'/g' ./envlist-repo/*.txt
