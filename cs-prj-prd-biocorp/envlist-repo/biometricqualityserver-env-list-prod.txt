@@ -1,0 +1,7 @@
+### LOG FLUENTD_REMOTEHOST
+APPLICATION_NAME=biometricquality
+APPLICATION_VERSION=repo_biometricqualityserver_version
+
+### Conexões
+app_preface-server_root-url=http://prefaceserver:8090/rest/preface
+app_preface-server_url=http://prefaceserver:8090/rest/preface

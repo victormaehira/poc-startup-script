@@ -1,0 +1,31 @@
+version: '3.4'
+
+volumes:
+  zoom-log:
+  zoom-temp:
+
+services:
+  facetec:
+    image: gcr.io/cs-prj-prd-biocorp/biozoomserver:${repo_facetec_version}
+    entrypoint: java -Xmx1g -Xms1g org.springframework.boot.loader.JarLauncher
+    env_file:
+      - envlist-repo/facetec-env-list-${app_env?}.txt
+    ports:
+      - 8490:8090
+      - 8491:8091
+    volumes:
+      - zoom-log:/app/log
+      - zoom-temp:/app/temp
+    networks:
+      - default
+      - facecheck_network
+    restart: on-failure
+    # healthcheck:
+    #   test: ["CMD", "/bin/curl","-f","http://localhost:8091/actuator/health"]
+    #   interval: 20s
+    #   timeout: 10s
+    #   retries: 4
+    #   start_period: 30s
+networks:
+  facecheck_network:
+    external: true

@@ -1,0 +1,35 @@
+sudo mkdir -p /opt/projetos
+cd /opt/projetos
+
+sudo apt -y install git
+sudo git clone https://github.com/victormaehira/poc-startup-script.git
+cd poc-startup-script/cs-prj-hmg-biocorp
+
+#escolha dir = biozoomserver ou quality ou facecheck
+export dir=facecheck
+
+export PASSWORD=$(gcloud secrets versions access "latest" --secret="db-password-hmg")
+export USER=$(gcloud secrets versions access "latest" --secret="db-user-hmg")
+export DB_IP=$(gcloud secrets versions access "latest" --secret="db-ip-hmg")
+
+export FACETEC_IP=$(gcloud secrets versions access "latest" --secret="facetec-ip-hmg")
+export QUALITY_IP=$(gcloud secrets versions access "latest" --secret="quality-ip-hmg")
+
+sudo sed -i 's/${SPRING_DATASOURCE_USERNAME}/'$USER'/g' ./envlist-repo/*.txt
+sudo sed -i 's/${SPRING_DATASOURCE_PASSWORD}/'$PASSWORD'/g' ./envlist-repo/*.txt
+sudo sed -i 's/${SPRING_DATASOURCE_IP}/'$DB_IP'/g' ./envlist-repo/*.txt
+sudo sed -i 's/${FACETEC_IP}/'$FACETEC_IP'/g' ./envlist-repo/*.txt
+sudo sed -i 's/${QUALITY_IP}/'$QUALITY_IP'/g' ./envlist-repo/*.txt
+
+source .env
+
+sudo apt -y install docker.io
+
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+sudo docker network create facecheck_network
+
+sudo gcloud auth configure-docker
+sudo cp ${dir}/docker-compose.yml ./
+sudo docker-compose up -d
